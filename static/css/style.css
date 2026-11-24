@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+body { font-family: 'Inter', sans-serif; background: #f5f7fa; color: #333; }
+.navbar { background: #4a90e2; }
+.navbar-brand, .nav-link { color: #fff !important; }
+.container { margin-top: 2rem; }
+.card { border: none; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.btn-primary { background: #4a90e2; border: none; }
+.btn-primary:hover { background: #357ab8; }
+.table { background: #fff; border-radius: 0.5rem; }

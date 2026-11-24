@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="card p-4">
+  <h3>Статистика для QR {{ qr.code }}</h3>
+  <p>Всего сканов: <strong>{{ total }}</strong></p>
+  <canvas id="chart" height="100"></canvas>
+  <table class="table mt-4">
+    <thead><tr><th>Время</th><th>IP</th><th>Город</th><th>Страна</th></tr></thead>
+    <tbody>{% for e in events %}
+      <tr><td>{{ e.timestamp.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ e.ip_address or '-' }}</td><td>{{ e.city or '-' }}</td><td>{{ e.country or '-' }}</td></tr>
+    {% endfor %}</tbody>
+  </table>
+</div>
+<script>
+  const dailyCounts = {{ daily_counts | tojson }};
+  if (typeof Chart !== 'undefined' && Object.keys(dailyCounts).length) {
+    new Chart(document.getElementById('chart'), {
+      type: 'bar',
+      data: {labels: Object.keys(dailyCounts), datasets: [{label: 'Сканов за день', data: Object.values(dailyCounts)}]}
+    });
+  }
+</script>
+{% endblock %}

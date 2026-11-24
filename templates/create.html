@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h3 class="mb-4">Создать QR-код</h3>
+      <form action="{{ url_for('create_qr') }}" method="post">
+        <div class="mb-3"><label>URL для редиректа</label><input name="target_url" class="form-control" placeholder="https://..." required></div>
+        <div class="d-flex gap-3 mb-3">
+          <div class="flex-fill"><label>Цвет</label><input name="fill_color" type="color" value="#000000" class="form-control form-control-color"></div>
+          <div class="flex-fill"><label>Фон</label><input name="back_color" type="color" value="#ffffff" class="form-control form-control-color"></div>
+        </div>
+        <button class="btn btn-primary w-100">Сгенерировать</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% if codes %}
+<section class="card p-4 mt-4">
+  <h2 class="h4">Ваши QR-коды</h2>
+  <ul class="list-group list-group-flush">
+    {% for qr in codes %}
+      <li class="list-group-item d-flex justify-content-between gap-3">
+        <a class="text-break" href="{{ url_for('track', code=qr.code) }}">{{ qr.target_url }}</a>
+        <a href="{{ url_for('stats', code=qr.code) }}">Статистика</a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}
